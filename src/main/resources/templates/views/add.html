@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" />
+    <title>相关账户信息新增</title>
+    <style>
+        .one{
+            float: left;
+        }
+        .duankou{
+            float: top;
+            margin-left: 450px;
+            margin-top: 20px;
+        }
+        .host {
+            float: left;
+            margin-left: 350px;
+            margin-top: 35px;
+            background-color: #fafafb;
+            border-style: solid;
+            border-width: 1px;
+            width: 360px;
+            height: 235px
+        }
+        .two{
+            float: left;
+        }
+        .fuwu{
+            float: top;
+            margin-left: 470px;
+            margin-top: 20px;
+        }
+        .service {
+            float: left;
+            margin-left: 350px;
+            margin-top: 35px;
+            background-color: #fafafb;
+            border-style: solid;
+            border-width: 1px;
+            width: 360px;
+            height: 235px
+        }
+
+        .three{
+            float: left;
+            margin-left: 715px;
+            margin-top: 20px;
+        }
+        .info {
+            background-color: #fafafb;
+            border-style: solid;
+            border-width: 1px;
+            width: 360px;
+            height: 90px
+        }
+    </style>
+</head>
+<body>
+<div class="one">
+    <h2 class="duankou"><font color="#00bfff">端口账号提交</font></h2>
+    <div class="host">
+        <br/>
+        <form id="host_acc" action="/xshell/host">
+            <br/>
+            <div align="center">
+                <label>端口号:</label>
+                <input type="text" name="host"/>
+            </div>
+            <br/>
+
+            <div align="center">
+                <label>账&nbsp;&nbsp;号&nbsp;:</label>
+                <input type="text" name="account"/>
+            </div>
+            <br/>
+
+            <div align="center">
+                <label>密&nbsp;&nbsp;码&nbsp;:</label>
+                <input type="text" name="password"/>
+            </div>
+            <br/>
+
+            <div align="center">
+                <input type="submit" value="提交"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="reset" value="取消"/>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="two">
+    <h2 class="fuwu"><font color="#00bfff">服务资料提交</font></h2>
+    <div class="service">
+        <br/>
+        <form id="service_Info" action="/xshell/service">
+            <div align="center">
+                <label>service_name:</label>
+                <input type="text" name="service_name"/>
+            </div>
+            <br/>
+
+            <div align="center">
+                <label>process_name:</label>
+                <input type="text" name="process_name"/>
+            </div>
+            <br/>
+
+            <div align="center">
+                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</label>
+                <input type="text" name="path"/>
+            </div>
+            <br/>
+
+            <div align="center">
+                <label>cmad_start&nbsp;:</label>
+                <input type="text" name="cmad_start"/>
+            </div>
+            <br/>
+
+            <div align="center">
+                <input type="submit" value="提交"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="reset" value="取消"/>
+            </div>
+        </form>
+    </div>
+</div>
+<br/>
+<div align="center" class="three">
+    <h2><font color="#6495ed">信息提示</font></h2>
+    <div class="info">
+        <font color="green"><h1 th:text="${InfoSucc}"></h1></font>
+
+        <font color="#a52a2a"><h1 th:text="${InfoError}"></h1></font>
+    </div>
+</div>
+
+</body>
+</html>
