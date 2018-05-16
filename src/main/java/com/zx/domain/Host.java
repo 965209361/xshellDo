@@ -33,4 +33,5 @@ public class Host {
     public String getPassword() {
         return password;
     }
+
 }
