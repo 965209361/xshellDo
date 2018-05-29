@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8"/>
+    <title>服务器查询页面</title>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+    <style>
+        .col-sm-5 {
+            width: 600px;
+            margin-left: 650px;
+            border-style: solid;
+            border-width: 1px;
+            background-color: #F2F2F2;
+        }
+
+        .col-sm-3 {
+            width: 1300px;
+            margin-left: 350px;
+            margin-top: 35px;
+            border-style: solid;
+            border-width: 1px;
+            background-color: #d6fffa;
+        }
+
+        .col-sm-5 table tr a {
+            font-size: 12px;
+            color: skyblue
+        }
+
+        .col-sm-5 table tr a:hover {
+            color: red
+        }
+    </style>
+</head>
+<body>
+<div class="info" align="center">
+    <font color="green"><h2 th:text="${InfoSucc}" id="tishi"></h2></font>
+</div>
+<div class="col-sm-5" align="center">
+    <table width="600" border="1" cellspacing="0" id="table">
+        <tr>
+            <th>mid:</th>
+            <th>区域:</th>
+            <th>服务名称:</th>
+            <th>详情页:</th>
+        </tr>
+        <tr th:each="user :${rows}" align="center">
+            <td th:text="${user.mid}"></td>
+            <td th:text="${user.area}"></td>
+            <td th:text="${user.host}"></td>
+            <td align="center"><a href="javascript:void(0);" onclick="content(this)" th:id="${user.mid}">展开</a></td>
+        </tr>
+    </table>
+</div>
+<div class="col-sm-3" id="biao" style="display:none;">
+    <table width="1300" border="1" align="center" cellspacing="0" id="content">
+        <tr>
+            <th>Sid</th>
+            <th>服务名:</th>
+            <th>进程名:</th>
+            <th>路径:</th>
+            <th>启动指令:</th>
+            <th>重启指令:</th>
+            <th>关闭指令:</th>
+            <th>状态指令:</th>
+        </tr>
+        <tr id="tro">
+
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+    function content(obj) {
+        var tid = obj.id;
+        $.ajax({
+            url: "/content/" + tid,
+            type: "post",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                var ddl = $("#content");
+                //删除节点
+                document.getElementById("biao").style.display = "block";
+                $("#content td").remove();
+                $("#tishi").text("MID: " + tid + " 加载完成~~");
+                $.each(data, function (i, result) {
+                    var item = "<tr><td>" + result['sid'] + "</td><td>" + result['service_name'] + "</td>" +
+                        "<td>" + result['process_name'] + "</td><td>" + result['path'] + "</td>" +
+                        "<td>" + result['cmad_start'] + "</td><td>" + result['cmad_restart'] + "</td>" +
+                        "<td>" + result['cmad_stop'] + "</td><td>" + result['cmad_status'] + "</td></tr>";
+                    ddl.append(item);
+                });
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    }
+
+</script>
+</html>
