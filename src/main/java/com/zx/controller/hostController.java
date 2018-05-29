@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -35,22 +38,23 @@ public class hostController {
         return "views/add";
     }
 
-     @RequestMapping("/service")
-     public String service(ServiceDomain serviceDomain, Model model) {
+    @RequestMapping("/service")
+    public String service(ServiceDomain serviceDomain, Model model) {
 
-         if (StringUtils.isEmpty(serviceDomain.getService_name())) {
-             model.addAttribute("InfoError", "服务器名为空,请重试");
-         } else if (StringUtils.isEmpty(serviceDomain.getProcess_name())) {
-             model.addAttribute("InfoError", "process..为空,请重试");
-         } else if (StringUtils.isEmpty(serviceDomain.getPath())) {
-             model.addAttribute("InfoError", "路径为空,请重试");
-         } else if (StringUtils.isEmpty(serviceDomain.getCmad_start())) {
-             model.addAttribute("InfoError", "Cmad值为空,请重试");
-         } else {
-             model.addAttribute("InfoSucc", "service数据存入成功!");
-         }
-         return "views/add";
-     }
+        if (StringUtils.isEmpty(serviceDomain.getService_name())) {
+            model.addAttribute("InfoError", "服务器名为空,请重试");
+        } else if (StringUtils.isEmpty(serviceDomain.getProcess_name())) {
+            model.addAttribute("InfoError", "process..为空,请重试");
+        } else if (StringUtils.isEmpty(serviceDomain.getPath())) {
+            model.addAttribute("InfoError", "路径为空,请重试");
+        } else if (StringUtils.isEmpty(serviceDomain.getCmad_start())) {
+            model.addAttribute("InfoError", "Cmad值为空,请重试");
+        } else {
+            model.addAttribute("InfoSucc", "service数据存入成功!");
+        }
+        return "views/add";
+    }
+
     @RequestMapping("/info")
     public String service(@RequestParam("host") String host) {
         System.out.println(host);
@@ -69,9 +73,23 @@ public class hostController {
 
     @RequestMapping("/content/{tid}")
     @ResponseBody
-    List<ServiceDomain> content(@PathVariable("tid") int tid){
+    List<ServiceDomain> content(@PathVariable("tid") int tid) {
         hostService hostService = new hostService();
-        List<ServiceDomain> listService = hostService.getService(tid);
+        List<ServiceDomain> listService = hostService.getService(String.valueOf(tid));
+        return listService;
+    }
+
+    @RequestMapping("/list")
+    @ResponseBody
+    List<ServiceDomain> list(HttpServletRequest request, String[] chk_value) {
+        hostService hostService = new hostService();
+        String str = "";
+        for (int i = 0; i < chk_value.length; i++) {
+                str = str +","+ chk_value[i];
+        }
+        str = str.substring(1);
+        System.out.println(str);
+        List<ServiceDomain> listService = hostService.getService(str);
         return listService;
     }
 }
