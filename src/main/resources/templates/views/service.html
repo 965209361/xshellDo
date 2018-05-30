@@ -7,20 +7,42 @@
     <script type="text/javascript" src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
     <style>
         .col-sm-5 {
-            width: 600px;
+            width: 700px;
             margin-left: 650px;
-            border-style: groove;
+        }
+
+        table.hovertable {
+            font-family: verdana, arial, sans-serif;
+            font-size: 11px;
+            color: #333333;
             border-width: 1px;
-            background-color: #F0F0F0;
+            border-color: #999999;
+            border-collapse: collapse;
+        }
+
+        table.hovertable th {
+            background-color: #c3dde0;
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #a9c6c9;
+        }
+
+        table.hovertable tr {
+            background-color: #d4e3e5;
+        }
+
+        table.hovertable td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #a9c6c9;
         }
 
         .col-sm-3 {
             width: 1300px;
             margin-left: 350px;
             margin-top: 35px;
-            border-style: solid;
-            border-width: 1px;
-            background-color: #D4D4D4;
         }
 
         .col-sm-5 table tr a {
@@ -38,15 +60,16 @@
     <font color="green"><h2 th:text="${InfoSucc}" id="tishi"></h2></font>
 </div>
 <div class="col-sm-5" align="center">
-    <table width="600" border="1" cellspacing="0" id="table">
-        <tr style="color: #C6E2FF" bgcolor="#8DB6CD">
+    <table width="700" cellspacing="0" id="table" class="hovertable">
+        <tr>
             <th>选择</th>
             <th>mid:</th>
             <th>区域:</th>
             <th>服务名称:</th>
             <th>详情页:</th>
         </tr>
-        <tr th:each="user :${rows}" align="center">
+        <tr th:each="user :${rows}" align="center" onmouseover="this.style.backgroundColor='#BFEFFF';"
+            onmouseout="this.style.backgroundColor='#d4e3e5';">
             <td><input type="checkbox" name="check" id="check" th:value="${user.mid}"/></td>
             <td th:text="${user.mid}"></td>
             <td th:text="${user.area}"></td>
@@ -62,8 +85,8 @@
     </table>
 </div>
 <div class="col-sm-3" id="biao" style="display:none;">
-    <table width="1300" border="1" align="center" cellspacing="0" id="content">
-        <tr style="color: #E0FFFF" bgcolor="#838B8B">
+    <table width="1300" align="center" cellspacing="0" id="content" class="hovertable">
+        <tr>
             <th>Sid</th>
             <th>服务名:</th>
             <th>进程名:</th>
@@ -109,7 +132,7 @@
                     url: "/list",
                     type: "post",
                     traditional: true,  //传递数组值时必须含有traditional
-                    data: {chk_value:chk_value},
+                    data: {chk_value: chk_value},
                     success: function (data) {
                         var ddl = $("#content");
                         //删除节点
