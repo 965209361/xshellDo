@@ -88,8 +88,20 @@ public class hostController {
                 str = str +","+ chk_value[i];
         }
         str = str.substring(1);
-        System.out.println(str);
         List<ServiceDomain> listService = hostService.getService(str);
         return listService;
+    }
+
+    @RequestMapping("/serverdata")
+    @ResponseBody
+    String info(HttpServletRequest request, String[] chk_value) {
+        hostService hostService = new hostService();
+        String str = "";
+        for (int i = 0; i < chk_value.length; i++) {
+            str = str +","+ chk_value[i];
+        }
+        str = str.substring(1);
+        System.out.println(str);
+            return "";
     }
 }

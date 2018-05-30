@@ -49,7 +49,7 @@ public class hostService {
     public List<ServiceDomain> getService(String id) {
         PreparedStatement prep = null;
         ResultSet rs = null;
-        String sql = String.format("SELECT sid,service_name,process_name,path,cmad_start,cmad_restart,cmad_stop,cmad_status FROM `service` WHERE mid in(%s);",id);
+        String sql = String.format("SELECT sid,depict,service_name,process_name,path,cmad_start,cmad_restart,cmad_stop,cmad_status FROM `service` WHERE mid in(%s);",id);
         List<ServiceDomain> list = new ArrayList<ServiceDomain>();
         try {
             prep = conn().prepareStatement(sql);
@@ -57,6 +57,7 @@ public class hostService {
             while (rs.next()) {
                 ServiceDomain serviceDomain = new ServiceDomain();
                 serviceDomain.setSid(rs.getInt("sid"));
+                serviceDomain.setDepict(rs.getString("depict"));
                 serviceDomain.setService_name(rs.getString("service_name"));
                 serviceDomain.setProcess_name(rs.getString("process_name"));
                 serviceDomain.setPath(rs.getString("path"));
