@@ -1,0 +1,16 @@
+css:
+    service.css  --service中的样式,包括表格,按钮,背景繁星
+    /css/normalize.css  --此为背景繁星的相关css样式
+    /css/zzsc-demo.css  --此为背景繁星的相关css样式
+    /css/select/四个css样式  --此为select下拉标签的css样式
+
+js:
+    service.js  --此为整个service.html中的主要js样式,包括表格的填入和按钮点击事件等
+    /select/两个js  --为下拉框所需的js.
+
+html:
+    add.html  --为增加服务器机器和服务的页面
+    service.html  --为判定机器是否开启以及机器运行情况和机器指令等页面
+
+java:
+    代码层的页面,controller层仅只有显示页面功能.

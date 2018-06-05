@@ -4,110 +4,16 @@
 <head>
     <meta charset="UTF-8"/>
     <title>服务器查询页面</title>
+
     <script type="text/javascript" src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
-    <style>
+    <link rel="stylesheet" href="../../static/css/service.css" type="text/css"/>
+    <!--下拉框CSS-->
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/select/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/select/demo.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/select/cs-select.css"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/select/cs-skin-underline.css"/>
 
-        /*表格样式*/
-        table.hovertable {
-            font-family: verdana, arial, sans-serif;
-            font-size: 13px;
-            color: #333333;
-            border-width: 1px;
-            border-color: #999999;
-            border-collapse: collapse;
-        }
-
-        table.hovertable th {
-            background-color: #c3dde0;
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #a9c6c9;
-        }
-
-        table.hovertable tr {
-            background-color: #d4e3e5;
-        }
-
-        table.hovertable td {
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #a9c6c9;
-        }
-        /*div样式*/
-        .col-sm-5 {
-            width: 700px;
-            margin-left: 650px;
-        }
-
-        .col-sm-3 {
-            width: 1300px;
-            margin-left: 350px;
-            margin-top: 35px;
-        }
-
-        .col-sm-5 table tr a {
-            font-size: 12px;
-            color: skyblue
-        }
-
-        .col-sm-5 table tr a:hover {
-            color: red
-        }
-
-        /*按钮显示css*/
-        .back{
-            width:50px;
-            height:25px;
-            background-color: #ddd;
-            border-radius: 15px;
-            display: block;
-            /*1.display: block;很重要，因为用来做背景的label是没有内容的*/
-            cursor: pointer;
-            position: relative;
-            /*2.父元素用relative，子元素用absolute，使子元素相对父元素定位*/
-            transition: all 0.3s ease;
-            /*背景变绿的特效*/
-        }
-        .back:after{
-            content:'';
-            /*3.除了有content还要有display，不然这个伪类不会出现*/
-            display:block;
-            width: 25px;
-            height: 25px;
-            border-radius: 100%;
-            background-color: #ffffff;
-            box-shadow: 1px 1px 1px black;
-            position: absolute;
-            top:-1px;
-            transition: all 0.3s ease;
-        }
-        .back:active:after{
-            transform: scale(2,0.8);
-        }
-        .blx:checked~label{
-            background-color: #42d842;
-            /*4.~代表之后的所有同级指定元素(这里是label)，不一定要挨着但一定要有相同父元素*/
-        }
-        .blx:checked~label:after{
-            left:25px;
-        }
-        .hidden{
-            display: none;
-        }
-
-        .blx:disabled~label{
-            background-color: #d5d5d5;
-            pointer-events: none;
-        }
-        .blx:disabled~label:after{
-            background-color: #bcbdbc;
-        }
-        .slidep{
-            margin: 20px;
-        }
-    </style>
 </head>
 <body>
 <div class="info" align="center">
@@ -132,19 +38,26 @@
         </tr>
         <tr>
             <td colspan="5" align="center">
-                <button id="btn1">全选</button>&nbsp;&nbsp;<button id="btn4">反选</button>&nbsp;&nbsp;<button id="sub">提交
-            </button>&nbsp;&nbsp;<button id="btn2">取消</button>
+                <button id="btn1" class="button type1"><a href="#" style="color:#000">全选</a></button>
+                <button id="btn4" class="button type1"><a href="#" style="color:#000">反选</a></button>
+                <button id="sub" class="button type2"><a href="#" style="color:#000">提交</a></button>
+                <button id="btn2" class="button type3"><a href="#" style="color:#000">取消</a></button>
             </td>
         </tr>
     </table>
+</div>
+<div class="info" align="center">
+    <font color="#fff8dc"><h2 id="jiqi"></h2></font>
 </div>
 <div class="col-sm-3" id="biao" style="display:none;">
     <table width="1300" align="center" cellspacing="0" id="content" class="hovertable">
         <tr>
             <th>选择</th>
-            <th name="unInfo">Sid</th>
-            <th>服务名:</th>
+            <th name="unInfo">Sid:</th>
+            <th id="miaoshu">服务名称:</th>
+            <th id="area" name="area">区域:</th>
             <th>服务描述:</th>
+            <th name="unInfo">服务名:</th>
             <th name="unInfo">进程名:</th>
             <th name="unInfo">路径:</th>
             <th name="unInfo">启动指令:</th>
@@ -155,16 +68,48 @@
         </tr>
     </table>
 </div>
-<div style="margin-left: 800px;display: none;" id="bq">
+<div style="margin-left: 500px;display: none;" id="bq">
     <tr id="tro">
         <td colspan="9" align="center">
-            <button id="btn7">全选</button>&nbsp;&nbsp;<button id="btn8">反选</button>&nbsp;&nbsp;<button id="sub1">提交
-        </button>&nbsp;&nbsp;<button id="btn9">取消</button>&nbsp;&nbsp;<button id="hidde">隐藏</button>&nbsp;&nbsp;<button
-                id="show">显示
-        </button>
+            <button id="btn7" class="button type3"><a href="#" style="color: #eefff6">全选</a></button>
+            <button id="btn8" class="button type3"><a href="#" style="color:#eefff6">反选</a></button>
+            <button id="btn9" class="button type3"><a href="#" style="color:#eefff6">取消</a></button>
+            <button id="hidde" class="button type3"><a href="#" style="color:#eefff6">隐藏</a></button>
+            <button id="show" class="button type3"><a href="#" style="color:#eefff6">显示</a></button>
+            <button id="status" class="button type2"><a href="#" style="color:#eefff6">查看运行状态</a></button>
+            <button id="openMachine" class="button type2"><a href="#" style="color:#eefff6">开启机器</a></button>
+            <select name="typeValue" id="typeID" class="cs-select cs-skin-underline color-2">
+                <option value="" disabled="disabled">步骤:</option>
+                <option value="0">爬虫服务</option>
+                <option value="1">zookeeper</option>
+                <option value="2">redis</option>
+                <option value="3">solr</option>
+                <option value="4">kafka</option>
+                <option value="5">舆情后台服务接口</option>
+                <option value="6">数据写入接口</option>
+                <option value="7">nginx</option>
+                <option value="8">hadoop</option>
+                <option value="9">spark</option>
+                <option value="10">spark写入数据程序</option>
+            </select>
         </td>
     </tr>
 </div>
+<!--星空样式-->
+<div class="stars"></div>
+<!--星空样式-->
 </body>
-<script src="../../static/js/service.js"></script>
+<script src="../../static/js/xshellDo/service.js"></script>
+<!--下拉框-->
+<script src="../../static/js/select/classie.js"></script>
+<script src="../../static/js/select/selectFx.js"></script>
+<script>
+    /*下拉框的点击方法js*/
+    (function () {
+        [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function (el) {
+            new SelectFx(el);
+        });
+    })();
+</script>
+<!--下拉框-->
 </html>

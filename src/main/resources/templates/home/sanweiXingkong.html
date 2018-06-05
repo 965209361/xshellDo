@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Simple 3D on HTML5 canvas</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+    $(function() {
+        $("#html5_3d_animation").html5_3d_animation({
+            window_width: '1900',
+            window_height: '940',
+            window_background: '#00113F',
+            star_count: '1000',
+            star_color: '#FBFFAF',
+            star_depth: '100',
+        });
+    });
+</script>
+</head>
+<body>
+<div class="wrap">
+    <canvas id="html5_3d_animation">Internet Explorer Not
+        Supported</canvas>
+    <div id="show"></div>
+
+</div>
+
+<div style="width:98%;margin:20px auto; padding:50px 0; clear:both; ">
+    <table width="700" cellspacing="0" id="table" class="hovertable" style="position: absolute">
+        <tr>
+            <th>选择</th>
+            <th>mid:</th>
+            <th>区域:</th>
+            <th>服务名称:</th>
+            <th>详情页:</th>
+        </tr>
+        <tr>
+            <td colspan="5" align="center">
+                <button id="btn1">全选</button>&nbsp;&nbsp;<button id="btn4">反选</button>&nbsp;&nbsp;<button id="sub">提交
+            </button>&nbsp;&nbsp;<button id="btn2">取消</button>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script type="text/javascript">
+    (function(a){
+        a.fn.html5_3d_animation=function(p){
+            var p=p||{};
+
+            var w_w=p&&p.window_width?p.window_width:"2000";
+            var w_h=p&&p.window_height?p.window_height:"940";
+            var w_b=p&&p.window_background?p.window_background:"#000";
+            var s_c=p&&p.star_count?p.star_count:"600";
+            var s_color=p&&p.star_color?p.star_color:"#FFF";
+            var s_d=p&&p.star_depth?p.star_depth:"250";
+            var dom=a(this);
+            var fov = parseInt(s_d);
+            var SCREEN_WIDTH = parseInt(w_w);
+            var SCREEN_HEIGHT = parseInt(w_h);
+            var HALF_WIDTH = SCREEN_WIDTH/2;
+            var HALF_HEIGHT = SCREEN_HEIGHT/2;
+            var c_id = dom.attr("id");
+            var numPoints = s_c;
+            dom.attr({ width: w_w, height: w_h});
+            setup();
+            function setup()
+            {
+                function draw3Din2D(point3d)
+                {
+                    x3d = point3d[0];
+                    y3d = point3d[1];
+                    z3d = point3d[2];
+                    var scale = fov/(fov+z3d);
+                    var x2d = (x3d * scale) + HALF_WIDTH;
+                    var y2d = (y3d * scale)  + HALF_HEIGHT;
+
+                    c.lineWidth= scale;
+                    c.strokeStyle = s_color;
+                    c.beginPath();
+                    c.moveTo(x2d,y2d);
+                    c.lineTo(x2d+scale,y2d);
+                    c.stroke();
+                }
+
+                var canvas = document.getElementById(c_id);
+                var c = canvas.getContext('2d');
+                var points = [];
+
+                function initPoints()
+                {
+                    for (i=0; i<numPoints; i++)
+                    {
+                        point = [(Math.random()*400)-200, (Math.random()*400)-200 , (Math.random()*400)-200 ];
+                        points.push(point);
+                    }
+
+                }
+
+                function render()
+                {
+                    c.fillStyle=w_b;
+                    c.fillRect(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+                    for (i=0; i<numPoints; i++)
+                    {
+                        point3d = points[i];
+
+                        z3d = point3d[2];
+                        z3d-=4;
+                        if(z3d<-fov) z3d +=400;
+                        point3d[2] = z3d;
+
+                        draw3Din2D(point3d);
+
+                    }
+                    var show = document.getElementById('show');
+                    show.appendChild('p');
+                }
+
+                initPoints();
+
+                var loop = setInterval(function(){
+                    render();
+                }, 50);
+
+            }
+        }
+    })(jQuery);
+</script>
+</html>

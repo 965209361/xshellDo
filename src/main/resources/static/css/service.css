@@ -1,0 +1,264 @@
+/**
+此为service的所有样式.表格,按钮,背景等
+ */
+/*表格样式*/
+table.hovertable {
+    font-family: verdana, arial, sans-serif;
+    font-size: 13px;
+    color: #333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
+
+table.hovertable th {
+    background-color: #c3dde0;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+
+table.hovertable tr {
+    background-color: #d4e3e5;
+}
+
+table.hovertable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+/*div样式*/
+.col-sm-5 {
+    width: 700px;
+    margin-left: 650px;
+}
+
+.col-sm-3 {
+    width: 1300px;
+    margin-left: 350px;
+    margin-top: 35px;
+}
+
+.col-sm-5 table tr a {
+    font-size: 12px;
+    color: #5aeba7
+}
+
+.col-sm-5 table tr a:hover {
+    color: red
+}
+
+/*按钮显示css*/
+.back{
+    width:50px;
+    height:25px;
+    background-color: #ddd;
+    border-radius: 15px;
+    display: block;
+    /*1.display: block;很重要，因为用来做背景的label是没有内容的*/
+    cursor: pointer;
+    position: relative;
+    /*2.父元素用relative，子元素用absolute，使子元素相对父元素定位*/
+    transition: all 0.3s ease;
+    /*背景变绿的特效*/
+}
+.back:after{
+    content:'';
+    /*3.除了有content还要有display，不然这个伪类不会出现*/
+    display:block;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 1px black;
+    position: absolute;
+    top:-1px;
+    transition: all 0.3s ease;
+}
+.back:active:after{
+    transform: scale(2,0.8);
+}
+.blx:checked~label{
+    background-color: #42d842;
+    /*4.~代表之后的所有同级指定元素(这里是label)，不一定要挨着但一定要有相同父元素*/
+}
+.blx:checked~label:after{
+    left:25px;
+}
+.hidden{
+    display: none;
+}
+
+.blx:disabled~label{
+    background-color: #d5d5d5;
+    pointer-events: none;
+}
+.blx:disabled~label:after{
+    /*background-color: #bcbdbc;*/
+    background-color: #bcbdbc;
+}
+.slidep{
+    margin: 20px;
+}
+/*繁星*/
+html, body {
+    height: 100%;
+    overflow: visible;
+}
+
+body {
+    width: 100%;
+    height:100%;
+    background: #000;
+    background-size: 100%;
+    perspective: 500px;
+
+}
+.stars {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height:4px;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
+    animation: fly 35s infinite linear;
+    transform-style: preserve-3d;
+}
+.stars:before, .stars:after {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    box-shadow: inherit;
+}
+.stars:before {
+    transform: translateZ(-300px);
+    opacity: .6;
+}
+.stars:after {
+    transform: translateZ(-600px);
+    opacity: .4;
+}
+
+@keyframes fly {
+    from {
+        transform: translateZ(0px);
+        opacity: .6;
+    }
+    to {
+        transform: translateZ(300px);
+        opacity: 1;
+    }
+}
+/*繁星*/
+
+/*-------------------------Button按钮的样式-------------------*/
+a {
+    text-decoration:none
+}
+.button {
+    position:relative;
+    padding:1em 1.5em;
+    border:none;
+    background-color:transparent;
+    cursor:pointer;
+    outline:none;
+    font-size:18px;
+    margin:1em 0.8em;
+}
+.button.type1 {
+    color:#566473;
+}
+.button.type1.type1::after,.button.type1.type1::before {
+    content:"";
+    display:block;
+    position:absolute;
+    width:20%;
+    height:20%;
+    border:2px solid;
+    transition:all 0.6s ease;
+    border-radius:2px;
+}
+.button.type1.type1::after {
+    bottom:0;
+    right:0;
+    border-top-color:transparent;
+    border-left-color:transparent;
+    border-bottom-color:#566473;
+    border-right-color:#566473;
+}
+.button.type1.type1::before {
+    top:0;
+    left:0;
+    border-bottom-color:transparent;
+    border-right-color:transparent;
+    border-top-color:#566473;
+    border-left-color:#566473;
+}
+.button.type1.type1:hover:after,.button.type1.type1:hover:before {
+    width:100%;
+    height:100%;
+}
+.button.type2 {
+    color:#16a085;
+}
+.button.type2.type2:after,.button.type2.type2:before {
+    content:"";
+    display:block;
+    position:absolute;
+    top:100%;
+    left:0;
+    width:100%;
+    height:2px;
+    background-color:#16a085;
+    transition:all 0.3s ease;
+    transform:scale(0.85);
+}
+.button.type2.type2:hover:before {
+    top:0;
+    transform:scale(1);
+}
+.button.type2.type2:hover:after {
+    transform:scale(1);
+}
+.button.type3 {
+    color:#435a6b;
+}
+.button.type3.type3::after,.button.type3.type3::before {
+    content:"";
+    display:block;
+    position:absolute;
+    width:20%;
+    height:20%;
+    border:2px solid;
+    transition:all 0.6s ease;
+    border-radius:2px;
+}
+.button.type3.type3::after {
+    bottom:0;
+    right:0;
+    border-top-color:transparent;
+    border-left-color:transparent;
+    border-bottom-color:#435a6b;
+    border-right-color:#435a6b;
+}
+.button.type3.type3::before {
+    top:0;
+    left:0;
+    border-bottom-color:transparent;
+    border-right-color:transparent;
+    border-top-color:#435a6b;
+    border-left-color:#435a6b;
+}
+.button.type3.type3:hover:after,.button.type3.type3:hover:before {
+    border-bottom-color:#435a6b;
+    border-right-color:#435a6b;
+    border-top-color:#435a6b;
+    border-left-color:#435a6b;
+    width:100%;
+    height:100%;
+}
+/*-------------------------Button按钮的样式-------------------*/

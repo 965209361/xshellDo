@@ -216,10 +216,13 @@
 <br/>
 <div align="center" class="three">
     <h2><font color="#6495ed">信息提示</font></h2>
-    <div class="info">
+    <!--<div class="info">
         <font color="green"><h1 th:text="${InfoSucc}"></h1></font>
 
         <font color="#a52a2a"><h1 th:text="${InfoError}"></h1></font>
+    </div>-->
+    <div class="info" align="center">
+        <font color="#fff8dc"><h2 id="succ"></h2></font>
     </div>
 </div>
 
@@ -249,7 +252,7 @@
             //几个参数需要注意一下
             type: "POST",//方法类型
             dataType: "json",//预期服务器返回的数据类型
-            url: "http://192.168.155.155:8806/addMachine",//url
+            url: "http://localhost:8806/addMachine",//url
             // url: "/host" ,//url
             // data: $('#host_acc').serialize(),
             data: JSON.stringify(jsonuserinfo),
@@ -257,11 +260,8 @@
                 request.setRequestHeader("Content-Type", "application/json");
             },
             success: function (result) {
-                console.log(result);//打印服务端返回的数据(调试用)
-                if (result.resultCode == 200) {
-                    alert("SUCCESS");
-                }
-                ;
+
+                $("#succ").text("传输成功");
             },
             error: function () {
                 alert("异常！");
@@ -274,7 +274,7 @@
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "http://192.168.155.155:8806/addService",
+            url: "http://192.168.155.236:8806/addService",
             data: JSON.stringify(jsonuserinfo),
             beforeSend: function (request) {
                 request.setRequestHeader("Content-Type", "application/json");
