@@ -2,7 +2,6 @@ package com.zx.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zx.domain.Host;
-import com.zx.domain.ServiceDomain;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.List;
 /**
  * created by zengqintao on 2018-05-28 17:15 .
  **/
-public class hostService {
+public class HostService {
 
 
     //mysql

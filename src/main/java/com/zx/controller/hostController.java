@@ -1,11 +1,9 @@
 package com.zx.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
 import com.zx.domain.Host;
 import com.zx.domain.ServiceDomain;
-import com.zx.service.hostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zx.service.HostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -14,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -72,7 +67,7 @@ public class hostController {
      */
     @RequestMapping("/fuwu")
     String service(Model model) {
-        hostService hostService = new hostService();
+        HostService hostService = new HostService();
         List<Host> list = hostService.getHost();
         model.addAttribute("rows", list);
         model.addAttribute("InfoSucc", "列表展示");
@@ -89,7 +84,7 @@ public class hostController {
     @ResponseBody
     List<JSONObject> content(@PathVariable("tid") int tid) {
         int[] arr = {tid};
-        hostService hostService = new hostService();
+        HostService hostService = new HostService();
         List<JSONObject> listService = hostService.getJsonService(arr);
         return listService;
     }
@@ -103,7 +98,7 @@ public class hostController {
     @RequestMapping("/typeValue/{typeValueId}")
     @ResponseBody
     List<JSONObject> typeValueId(@PathVariable("typeValueId") int typeValueId) {
-        hostService hostService = new hostService();
+        HostService hostService = new HostService();
         List<JSONObject> listService = hostService.gettypeValueId(typeValueId);
         return listService;
     }
@@ -117,7 +112,7 @@ public class hostController {
     @RequestMapping("/ServiceDetailList")
     @ResponseBody
     List<JSONObject> list(HttpServletRequest request, int[] chk_value) {
-        hostService hostService = new hostService();
+        HostService hostService = new HostService();
         List<JSONObject> listService = hostService.getJsonService(chk_value);
         return listService;
     }
@@ -132,7 +127,7 @@ public class hostController {
     @RequestMapping("/getSidForXshell")
     @ResponseBody
     String info(HttpServletRequest request, String[] chk_value) {
-        hostService hostService = new hostService();
+        HostService hostService = new HostService();
         String str = "";
         for (int i = 0; i < chk_value.length; i++) {
             str = str + "," + chk_value[i];
@@ -146,7 +141,7 @@ public class hostController {
     @RequestMapping("/getSelectValue")
     @ResponseBody
     List<JSONObject> getSelectValue() {
-        hostService hostService = new hostService();
+        HostService hostService = new HostService();
         List<JSONObject> list = hostService.getSelectValue();
         return list;
     }
