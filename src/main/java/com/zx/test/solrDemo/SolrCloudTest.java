@@ -38,7 +38,7 @@ public class SolrCloudTest {
 
         SolrInputDocument doc3 = new SolrInputDocument();
         doc3.addField("id", "3");
-        doc3.addField("name", "刘俊2");
+        doc3.addField("name", "小伟");
 
         SolrInputDocument do4 = new SolrInputDocument();
         do4.addField("id", "4");
@@ -126,4 +126,36 @@ public class SolrCloudTest {
         solrServer.close();
     }
 
+
+    @Test
+    public void test() throws Exception {
+        //创建一个和solr集群的连接
+        //参数就是zookeeper的地址列表,使用逗号分隔
+        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
+        CloudSolrServer solrServer = new CloudSolrServer(zkHost);
+        //设置默认的colletion
+        solrServer.setDefaultCollection("mycollection1");
+        //创建一个文档对象
+        SolrInputDocument doc1 = new SolrInputDocument();
+        //向文档中添加域
+        doc1.addField("id", "5");
+        doc1.addField("productId", "2");
+        doc1.addField("productTitle", "苹果");
+        doc1.addField("merchantName", "走路");
+        doc1.addField("countryName", "新加坡");
+
+        SolrInputDocument do4 = new SolrInputDocument();
+        do4.addField("id", "6");
+        do4.addField("productId", "3");
+        do4.addField("productTitle", "香蕉");
+        do4.addField("merchantName", "坐车");
+        do4.addField("countryName", "泰国");
+        Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
+        docs.add(doc1);
+        docs.add(do4);
+        //把文档添加到索引库
+        solrServer.add(docs);
+        //提交
+        solrServer.commit();
+    }
 }
