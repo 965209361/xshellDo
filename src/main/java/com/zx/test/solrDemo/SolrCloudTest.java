@@ -1,7 +1,7 @@
 package com.zx.test.solrDemo;
 
+import com.zx.domain.Product;
 import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -22,7 +22,7 @@ public class SolrCloudTest {
     public void tesAddDocument() throws Exception {
         //创建一个和solr集群的连接
         //参数就是zookeeper的地址列表,使用逗号分隔
-        String zkHost = "192.168.80.128:2181,192.168.80.128:2182,192.168.80.128:2183";
+        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的colletion
         solrServer.setDefaultCollection("mycollection1");
@@ -40,15 +40,16 @@ public class SolrCloudTest {
         doc3.addField("id", "3");
         doc3.addField("name", "刘俊2");
 
+        SolrInputDocument do4 = new SolrInputDocument();
+        do4.addField("id", "4");
+        do4.addField("name", "王刚");
         Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
         docs.add(doc1);
         docs.add(doc2);
         docs.add(doc3);
-        SolrInputDocument do4 = new SolrInputDocument();
-        do4.addField("id", "4");
-        do4.addField("name", "王刚");
+        docs.add(do4);
         //把文档添加到索引库
-        solrServer.add(do4);
+        solrServer.add(docs);
         //提交
         solrServer.commit();
     }
@@ -57,18 +58,19 @@ public class SolrCloudTest {
     public void deleteDocument() throws SolrServerException, IOException {
         //创建一个和solr集群的额连接
         //参数就是zookeeper的地址列表,使用逗号分隔
-        String zkHost = "192.168.80.128:2181,192.168.80.128:2182,192.168.80.128:2183";
+        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的collection
         solrServer.setDefaultCollection("mycollection1");
-        solrServer.deleteByQuery("*:*");
+//        solrServer.deleteByQuery("*:*");
+        solrServer.deleteByQuery("id:4");
         solrServer.commit();
     }
 
     @Test
     public void search() {
         System.out.println("测试查询query！！！！");
-        String zkHost = "192.168.80.128:2181,192.168.80.128:2182,192.168.80.128:2183";
+        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         solrServer.setDefaultCollection("mycollection1");
         String queryValue = "id:*";
@@ -96,4 +98,32 @@ public class SolrCloudTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 对商品对象的solr存入--暂时未能实现功能
+     *
+     * @throws Exception
+     */
+    @Test
+    public void addBean() throws Exception {
+        //创建一个和solr集群的连接
+        //参数就是zookeeper的地址列表,使用逗号分隔
+        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
+        CloudSolrServer solrServer = new CloudSolrServer(zkHost);
+        //设置默认的colletion
+        solrServer.setDefaultCollection("mycollection1");
+        Product product = new Product();
+        product.setId("3000");
+        product.setP_name("测试商品名称");
+        product.setP_typeName("测试商品名称分类");
+        product.setP_price(399F);
+        product.setP_number(30000L);
+        product.setP_description("测试商品描述");
+        product.setP_picture("测试商品图片");
+        Collection<Product> docs = new ArrayList<Product>();
+        docs.add(product);
+        solrServer.commit();
+        solrServer.close();
+    }
+
 }
