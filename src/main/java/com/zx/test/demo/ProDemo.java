@@ -11,10 +11,10 @@ import java.util.Properties;
  **/
 public class ProDemo {
     static Properties prop = ProKit.prop("jdbc.properties");
-    static final String PROPERTIES="i like {0} and {1}";
+    static final String PROPERTIES = "i like {0} and {1}";
 
     public static void main(String[] args) {
-        String names = MessageFormat.format(PROPERTIES,prop.getProperty("name"),prop.getProperty("name1"));
+        String names = MessageFormat.format(PROPERTIES, prop.getProperty("name"), prop.getProperty("name1"));
         System.out.println(names);
     }
 }

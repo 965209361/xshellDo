@@ -3,22 +3,25 @@ package com.zx.service;
 import com.alibaba.fastjson.JSONObject;
 import com.zx.domain.Host;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * created by zengqintao on 2018-05-28 17:15 .
  **/
 public class HostService {
-
+    Properties proKit =prop("jdbc.properties");
 
     //mysql
     public Connection conn() {
         Connection conn = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://45.63.53.232:3306/program?useUnicode=true&characterEncoding=utf-8", "admin", "zxsoft0#");
+            Class.forName(proKit.getProperty("com.driver"));
+            conn = DriverManager.getConnection(proKit.getProperty("com.jdbc"), proKit.getProperty("com.user"), proKit.getProperty("com.password"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -189,5 +192,16 @@ public class HostService {
         }
         return list;
 
+    }
+
+    public Properties prop(String fileName) {
+        InputStream is = HostService.class.getClassLoader().getResourceAsStream(fileName);
+        Properties prop = new Properties();
+        try {
+            prop.load(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return prop;
     }
 }
