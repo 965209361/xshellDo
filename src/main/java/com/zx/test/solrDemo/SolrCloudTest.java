@@ -25,7 +25,7 @@ public class SolrCloudTest {
         String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的colletion
-        solrServer.setDefaultCollection("mycollection1");
+        solrServer.setDefaultCollection("zengColl");
         //创建一个文档对象
         SolrInputDocument doc1 = new SolrInputDocument();
         //向文档中添加域
@@ -61,7 +61,7 @@ public class SolrCloudTest {
         String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的collection
-        solrServer.setDefaultCollection("mycollection1");
+        solrServer.setDefaultCollection("collectionDemo");
 //        solrServer.deleteByQuery("*:*");
         solrServer.deleteByQuery("id:4");
         solrServer.commit();
@@ -72,7 +72,7 @@ public class SolrCloudTest {
         System.out.println("测试查询query！！！！");
         String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
-        solrServer.setDefaultCollection("mycollection1");
+        solrServer.setDefaultCollection("collectionDemo");
         String queryValue = "id:*";
         SolrQuery query = new SolrQuery();
         query.setQuery(queryValue);
@@ -111,7 +111,7 @@ public class SolrCloudTest {
         String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的colletion
-        solrServer.setDefaultCollection("mycollection1");
+        solrServer.setDefaultCollection("collectionDemo");
         Product product = new Product();
         product.setId("3000");
         product.setP_name("测试商品名称");
@@ -134,7 +134,7 @@ public class SolrCloudTest {
         String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的colletion
-        solrServer.setDefaultCollection("mycollection1");
+        solrServer.setDefaultCollection("collectionDemo");
         //创建一个文档对象
         SolrInputDocument doc1 = new SolrInputDocument();
         //向文档中添加域
