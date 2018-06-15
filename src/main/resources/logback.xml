@@ -159,7 +159,7 @@
     <logger name="org.apache.http.client.protocol" level="WARN" />
     <logger name="org.apache.http.impl" level="WARN" />
     <logger name="org.apache.http.conn.ssl" level="WARN" />
-    <logger name="com.zxsoft.crawler.p" level="DEBUG" />
+    <logger name="com.zx" level="DEBUG" />
 
 
     <!-- root级别   DEBUG -->
