@@ -22,17 +22,17 @@ public class SolrCloudTest {
     public void tesAddDocument() throws Exception {
         //创建一个和solr集群的连接
         //参数就是zookeeper的地址列表,使用逗号分隔
-        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
+        String zkHost = "192.168.80.130:2181,192.168.80.130:2182,192.168.80.130:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的colletion
-        solrServer.setDefaultCollection("zengColl");
+        solrServer.setDefaultCollection("collectionDemo");
         //创建一个文档对象
         SolrInputDocument doc1 = new SolrInputDocument();
         //向文档中添加域
         doc1.addField("id", "1");
         doc1.addField("name", "张民");
-
-        SolrInputDocument doc2 = new SolrInputDocument();
+        //region
+        /*SolrInputDocument doc2 = new SolrInputDocument();
         doc2.addField("id", "2");
         doc2.addField("name", "刘俊");
 
@@ -42,12 +42,13 @@ public class SolrCloudTest {
 
         SolrInputDocument do4 = new SolrInputDocument();
         do4.addField("id", "4");
-        do4.addField("name", "王刚");
+        do4.addField("name", "王刚");*/
+        //endregion
         Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
         docs.add(doc1);
-        docs.add(doc2);
+        /*docs.add(doc2);
         docs.add(doc3);
-        docs.add(do4);
+        docs.add(do4);*/
         //把文档添加到索引库
         solrServer.add(docs);
         //提交
@@ -55,10 +56,41 @@ public class SolrCloudTest {
     }
 
     @Test
+    public void ADD() throws Exception {
+        String zkHost = "192.168.80.130:2181,192.168.80.130:2182,192.168.80.130:2183";
+        CloudSolrServer solrServer = new CloudSolrServer(zkHost);
+        solrServer.setDefaultCollection("collectionDemo");
+        SolrInputDocument doc = new SolrInputDocument();
+        doc.addField("id", "9");
+        doc.addField("name", "李彦宏");
+        doc.addField("title", "百度一下你就知道");
+        doc.addField("url", "http://www.baidu.com");
+        doc.addField("price", "3000000");
+        SolrInputDocument doc1 = new SolrInputDocument();
+        doc1.addField("id", "7");
+        doc1.addField("name", "马化腾");
+        doc1.addField("title", "腾讯,点滴间的快乐");
+        doc1.addField("url", "http://www.tencent.com");
+        doc1.addField("price", "600000000");
+        SolrInputDocument doc2 = new SolrInputDocument();
+        doc2.addField("id", "8");
+        doc2.addField("name", "马云");
+        doc2.addField("title", "阿里巴巴");
+        doc2.addField("url", "http://www.alibaba.com");
+        doc2.addField("price", "8888888888");
+        Collection<SolrInputDocument> solr = new ArrayList<SolrInputDocument>();
+        solr.add(doc);
+        solr.add(doc1);
+        solr.add(doc2);
+        solrServer.add(solr);
+        solrServer.commit();
+    }
+
+    @Test
     public void deleteDocument() throws SolrServerException, IOException {
         //创建一个和solr集群的额连接
         //参数就是zookeeper的地址列表,使用逗号分隔
-        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
+        String zkHost = "192.168.80.130:2181,192.168.80.130:2182,192.168.80.130:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的collection
         solrServer.setDefaultCollection("collectionDemo");
@@ -70,7 +102,7 @@ public class SolrCloudTest {
     @Test
     public void search() {
         System.out.println("测试查询query！！！！");
-        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
+        String zkHost = "192.168.80.130:2181,192.168.80.130:2182,192.168.80.130:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         solrServer.setDefaultCollection("collectionDemo");
         String queryValue = "id:*";
@@ -108,7 +140,7 @@ public class SolrCloudTest {
     public void addBean() throws Exception {
         //创建一个和solr集群的连接
         //参数就是zookeeper的地址列表,使用逗号分隔
-        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
+        String zkHost = "192.168.80.130:2181,192.168.80.130:2182,192.168.80.130:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的colletion
         solrServer.setDefaultCollection("collectionDemo");
@@ -131,7 +163,7 @@ public class SolrCloudTest {
     public void test() throws Exception {
         //创建一个和solr集群的连接
         //参数就是zookeeper的地址列表,使用逗号分隔
-        String zkHost = "192.168.80.129:2181,192.168.80.129:2182,192.168.80.129:2183";
+        String zkHost = "192.168.80.130:2181,192.168.80.130:2182,192.168.80.130:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
         //设置默认的colletion
         solrServer.setDefaultCollection("collectionDemo");
