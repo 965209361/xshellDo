@@ -29,26 +29,12 @@ public class SolrCloudTest {
         //创建一个文档对象
         SolrInputDocument doc1 = new SolrInputDocument();
         //向文档中添加域
-        doc1.addField("id", "1");
-        doc1.addField("name", "张民");
-        //region
-        /*SolrInputDocument doc2 = new SolrInputDocument();
-        doc2.addField("id", "2");
-        doc2.addField("name", "刘俊");
+        doc1.addField("id", 15);
+        doc1.addField("name", "蜘蛛侠");
+        doc1.addField("title", "蜘蛛侠带你装逼带你飞！");
 
-        SolrInputDocument doc3 = new SolrInputDocument();
-        doc3.addField("id", "3");
-        doc3.addField("name", "小伟");
-
-        SolrInputDocument do4 = new SolrInputDocument();
-        do4.addField("id", "4");
-        do4.addField("name", "王刚");*/
-        //endregion
-        Collection<SolrInputDocument> docs = new ArrayList<SolrInputDocument>();
+        Collection<SolrInputDocument> docs = new ArrayList<>();
         docs.add(doc1);
-        /*docs.add(doc2);
-        docs.add(doc3);
-        docs.add(do4);*/
         //把文档添加到索引库
         solrServer.add(docs);
         //提交
@@ -59,25 +45,25 @@ public class SolrCloudTest {
     public void ADD() throws Exception {
         String zkHost = "192.168.80.130:2181,192.168.80.130:2182,192.168.80.130:2183";
         CloudSolrServer solrServer = new CloudSolrServer(zkHost);
-        solrServer.setDefaultCollection("collectionDemo");
+        solrServer.setDefaultCollection("JunitConn");
         SolrInputDocument doc = new SolrInputDocument();
-        doc.addField("id", "9");
-        doc.addField("name", "李彦宏");
-        doc.addField("title", "百度一下你就知道");
-        doc.addField("url", "http://www.baidu.com");
-        doc.addField("price", "3000000");
+        doc.addField("id", "1");
+        doc.addField("name", "LOL");
+        doc.addField("title", "英雄联盟");
+        doc.addField("url", "http://www.LOL.com");
+        doc.addField("price", "300");
         SolrInputDocument doc1 = new SolrInputDocument();
-        doc1.addField("id", "7");
-        doc1.addField("name", "马化腾");
-        doc1.addField("title", "腾讯,点滴间的快乐");
-        doc1.addField("url", "http://www.tencent.com");
-        doc1.addField("price", "600000000");
+        doc1.addField("id", "2");
+        doc1.addField("name", "DNF");
+        doc1.addField("title", "地下城与勇士");
+        doc1.addField("url", "http://www.dnf.com");
+        doc1.addField("price", "100");
         SolrInputDocument doc2 = new SolrInputDocument();
-        doc2.addField("id", "8");
-        doc2.addField("name", "马云");
-        doc2.addField("title", "阿里巴巴");
-        doc2.addField("url", "http://www.alibaba.com");
-        doc2.addField("price", "8888888888");
+        doc2.addField("id", "3");
+        doc2.addField("name", "吃鸡");
+        doc2.addField("title", "绝地求生");
+        doc2.addField("url", "http://www.chiji.com");
+        doc2.addField("price", "98");
         Collection<SolrInputDocument> solr = new ArrayList<SolrInputDocument>();
         solr.add(doc);
         solr.add(doc1);
@@ -129,6 +115,17 @@ public class SolrCloudTest {
             System.out.println("Unknowned Exception!!!!");
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void query() {
+        System.out.println("进行查询");
+        String zkHost = "192.168.80.130:2181,192.168.80.130:2182,192.168.80.130:2183";
+        CloudSolrServer solrServer = new CloudSolrServer(zkHost);
+        solrServer.setDefaultCollection("collectionDemo");
+        String queryValue = "id:*";
+        SolrQuery query = new SolrQuery();
+        query.setQuery(queryValue);
     }
 
     /**

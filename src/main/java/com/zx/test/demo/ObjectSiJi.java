@@ -33,6 +33,7 @@ public enum ObjectSiJi {
     public static String getDesc(int index) {
         for (ObjectSiJi is : ObjectSiJi.values()) {
             if (is.getIndex() == index) {
+                System.out.println(is.getDesc());
                 return is.getDesc();
             }
         }

@@ -37,8 +37,6 @@ public class WorkThread implements Runnable {
 
     @Override
     public String toString() {
-        return "WorkThread{" +
-                "workCommon='" + workCommon + '\'' +
-                '}';
+        return "WorkThread{" + "workCommon='" + workCommon + '\'' + '}';
     }
 }
