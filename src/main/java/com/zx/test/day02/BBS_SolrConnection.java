@@ -18,7 +18,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
-import java.util.Random;
 
 /**
  * created by zengqintao on 2018-07-02 14:33 .
